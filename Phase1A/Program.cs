@@ -15,7 +15,7 @@ namespace ManagersNotepadAppication
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new NotePadForm());
+            Application.Run(new NotepadForm());
         }
     }
 }

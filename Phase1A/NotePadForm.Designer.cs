@@ -1,6 +1,6 @@
 ﻿namespace ManagersNotepadAppication
 {
-    partial class NotePadForm
+    partial class NotepadForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Root");
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NotePadForm));
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Root");
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NotepadForm));
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripAddCategory = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripAddMessage = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,18 +43,17 @@
             this.textEditor = new System.Windows.Forms.RichTextBox();
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.newToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.cutToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.copyToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.pasteToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.helpToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.fontComboBox = new System.Windows.Forms.ToolStripComboBox();
+            this.fontScriptComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.sizeComboBox = new System.Windows.Forms.ToolStripComboBox();
-            this.fontScriptComboBox3 = new System.Windows.Forms.ToolStripComboBox();
             this.boldButton = new System.Windows.Forms.ToolStripButton();
             this.italicButton = new System.Windows.Forms.ToolStripButton();
             this.underlineButton = new System.Windows.Forms.ToolStripButton();
@@ -177,11 +176,11 @@
             this.hierarchicalTree.LabelEdit = true;
             this.hierarchicalTree.Location = new System.Drawing.Point(0, 0);
             this.hierarchicalTree.Name = "hierarchicalTree";
-            treeNode1.ContextMenuStrip = this.contextMenuStrip1;
-            treeNode1.Name = "Root";
-            treeNode1.Text = "Root";
+            treeNode2.ContextMenuStrip = this.contextMenuStrip1;
+            treeNode2.Name = "Root";
+            treeNode2.Text = "Root";
             this.hierarchicalTree.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
+            treeNode2});
             this.hierarchicalTree.Size = new System.Drawing.Size(348, 400);
             this.hierarchicalTree.TabIndex = 0;
             this.hierarchicalTree.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.hierarchicalTree_AfterLabelEdit);
@@ -246,9 +245,8 @@
             this.pasteToolStripButton,
             this.toolStripSeparator1,
             this.helpToolStripButton,
-            this.fontComboBox,
             this.sizeComboBox,
-            this.fontScriptComboBox3,
+            this.fontScriptComboBox,
             this.boldButton,
             this.italicButton,
             this.underlineButton,
@@ -259,9 +257,19 @@
             this.bulletsButton});
             this.toolStrip1.Location = new System.Drawing.Point(3, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(610, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(585, 25);
             this.toolStrip1.TabIndex = 5;
             this.toolStrip1.Text = "toolStrip1";
+            // 
+            // saveToolStripButton
+            // 
+            this.saveToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.saveToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripButton.Image")));
+            this.saveToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.saveToolStripButton.Name = "saveToolStripButton";
+            this.saveToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.saveToolStripButton.Text = "&Save";
+            this.saveToolStripButton.Click += new System.EventHandler(this.saveToolStripButton_Click);
             // 
             // newToolStripButton
             // 
@@ -284,16 +292,6 @@
             this.openToolStripButton.Text = "&Open";
             this.openToolStripButton.Visible = false;
             this.openToolStripButton.Click += new System.EventHandler(this.openToolStripButton_Click);
-            // 
-            // saveToolStripButton
-            // 
-            this.saveToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.saveToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripButton.Image")));
-            this.saveToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.saveToolStripButton.Name = "saveToolStripButton";
-            this.saveToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.saveToolStripButton.Text = "&Save";
-            this.saveToolStripButton.Click += new System.EventHandler(this.saveToolStripButton_Click);
             // 
             // toolStripSeparator
             // 
@@ -344,14 +342,15 @@
             this.helpToolStripButton.Text = "He&lp";
             this.helpToolStripButton.Click += new System.EventHandler(this.helpToolStripButton_Click);
             // 
-            // fontComboBox
+            // fontScriptComboBox
             // 
-            this.fontComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.fontComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.fontComboBox.MaxDropDownItems = 5;
-            this.fontComboBox.Name = "fontComboBox";
-            this.fontComboBox.Size = new System.Drawing.Size(100, 25);
-            this.fontComboBox.SelectedIndexChanged += new System.EventHandler(this.fontComboBox_SelectedIndexChanged);
+            this.fontScriptComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.fontScriptComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.fontScriptComboBox.MaxDropDownItems = 5;
+            this.fontScriptComboBox.Name = "fontScriptComboBox";
+            this.fontScriptComboBox.Size = new System.Drawing.Size(100, 25);
+            this.fontScriptComboBox.SelectedIndexChanged += new System.EventHandler(this.fontComboBox_SelectedIndexChanged);
+            this.fontScriptComboBox.Click += new System.EventHandler(this.fontScriptComboBox_Click);
             // 
             // sizeComboBox
             // 
@@ -375,21 +374,6 @@
             this.sizeComboBox.Name = "sizeComboBox";
             this.sizeComboBox.Size = new System.Drawing.Size(75, 25);
             this.sizeComboBox.SelectedIndexChanged += new System.EventHandler(this.sizeComboBox_SelectedIndexChanged);
-            // 
-            // fontScriptComboBox3
-            // 
-            this.fontScriptComboBox3.Items.AddRange(new object[] {
-            "Arabic",
-            "Baltic",
-            "Central European",
-            "Cyrillic",
-            "Greek",
-            "Hebrew",
-            "Turkish",
-            "Vietnamese",
-            "Western"});
-            this.fontScriptComboBox3.Name = "fontScriptComboBox3";
-            this.fontScriptComboBox3.Size = new System.Drawing.Size(100, 25);
             // 
             // boldButton
             // 
@@ -600,13 +584,13 @@
             this.bulletsButton.Text = "Bullets";
             this.bulletsButton.Click += new System.EventHandler(this.bulletsButton_Click);
             // 
-            // Form1
+            // NotepadForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(781, 425);
             this.Controls.Add(this.toolStripContainer1);
-            this.Name = "Form1";
+            this.Name = "NotepadForm";
             this.Text = "Manager\'s Notepad Application";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -654,14 +638,13 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton helpToolStripButton;
         private System.Windows.Forms.ToolStripComboBox sizeComboBox;
-        private System.Windows.Forms.ToolStripComboBox fontScriptComboBox3;
+        private System.Windows.Forms.ToolStripComboBox fontScriptComboBox;
         private System.Windows.Forms.ToolStripButton boldButton;
         private System.Windows.Forms.ToolStripButton italicButton;
         private System.Windows.Forms.ToolStripButton underlineButton;
         private System.Windows.Forms.ToolStripButton alignLeftButton;
         private System.Windows.Forms.ToolStripButton alignCenterButton;
         private System.Windows.Forms.ToolStripButton alignRightButton;
-        private System.Windows.Forms.ToolStripComboBox fontComboBox;
         private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.ToolStripDropDownButton colorDropDownButton1;
         private System.Windows.Forms.ToolStripMenuItem blackMenuItem;

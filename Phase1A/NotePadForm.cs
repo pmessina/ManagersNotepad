@@ -14,14 +14,14 @@ using System.IO;
 
 namespace ManagersNotepadAppication
 {
-    public partial class NotePadForm : Form
+    public partial class NotepadForm : Form
     {
         private const string InitCategoryName = "<Category>";
-        private const string InitMemoSubject = "<Memo>";
+        private const string InitMemoName = "<Memo>";
 
         private static bool isSaved = true;
 
-        public NotePadForm()
+        public NotepadForm()
         {
             InitializeComponent();
         }
@@ -61,7 +61,7 @@ namespace ManagersNotepadAppication
                 //create initial root category
                 hierarchicalTree.Nodes[0].Tag = new Category() { Name = "Main" };
                 hierarchicalTree.Nodes[0].Text = "Main";
-                serializeData();
+                //serializeData();
             }
             Category rootCategory = hierarchicalTree.Nodes[0].Tag as Category;
             
@@ -74,14 +74,14 @@ namespace ManagersNotepadAppication
             toolStripDeleteMessage.Visible = false;
             toolStripDeleteCategory.Visible = false;
 
-            fontComboBox.ComboBox.DisplayMember = "Name";
+            fontScriptComboBox.ComboBox.DisplayMember = "Name";
 
             InstalledFontCollection installedFonts = new InstalledFontCollection();
             foreach (FontFamily family in installedFonts.Families)
             {
                 //if (family.Name == "Aharoni")
                 //    fontComboBox.Items.Remove(family.Name);
-                //fontComboBox.Items.Add(family);
+                fontScriptComboBox.Items.Add(family);
             }
 
             propertyGrid1.ToolbarVisible = false;
@@ -97,15 +97,16 @@ namespace ManagersNotepadAppication
             //while category Memos is not null, find each memo and add to the treenode collection
             foreach (Memo m in category.Memos)
             {
-                TreeNode currentMemoNode = node.Nodes.Add(m.Subject);
+                TreeNode currentMemoNode = node.Nodes.Add(m.Subject ?? InitMemoName);
                 currentMemoNode.Tag = m;
             }
 
             //while category Categories is not null, find each Category and add to the treenode collection
             foreach (Category childCategory in category.Categories)
             {
-                TreeNode currentCategoryNode = node.Nodes.Add(childCategory.Name);
+                TreeNode currentCategoryNode = node.Nodes.Add(childCategory.Name ?? InitCategoryName);
                 currentCategoryNode.Tag = childCategory;
+                hierarchicalTree.Update();
 
                 repopHierarchicalView(childCategory, currentCategoryNode);
             }
@@ -152,7 +153,7 @@ namespace ManagersNotepadAppication
         private void hierarchicalTree_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             // If the left or right mouse is clicked we 
-            // have to make sure that the node get selected
+            // have to make sure that the node gets selected
             // because a simple right click will only display
             // the context menu and if the node has not already
             // been selected then the context menu event handler
@@ -182,9 +183,10 @@ namespace ManagersNotepadAppication
                 newNode.Tag = newCategory;
                 currentNode.Expand();
                 hierarchicalTree.SelectedNode = newNode;
+               
                 newNode.BeginEdit();
 
-                serializeData();
+                //serializeData();
             }
         }
 
@@ -197,7 +199,7 @@ namespace ManagersNotepadAppication
             Memo newMemo = new Memo();
 
             //Initialize the memo Subject field with a string
-            newMemo.Subject = InitMemoSubject;
+            newMemo.Subject = InitMemoName;
             currentCategory.Memos.Add(newMemo);
             newMemo.Parent = currentCategory;
 
@@ -232,7 +234,7 @@ namespace ManagersNotepadAppication
 
             if (textEditor.Rtf.Length > 0)
             {
-                DialogResult deleteNode = MessageBox.Show("Are you sure you want to delete" + hierarchicalTree.SelectedNode.Text,
+                DialogResult deleteNode = MessageBox.Show("Are you sure you want to delete?" + hierarchicalTree.SelectedNode.Text,
                 "Delete Message?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (DialogResult.No == deleteNode)
@@ -251,7 +253,7 @@ namespace ManagersNotepadAppication
 
             //Delete the node from the treenode collection
             currentNode.Remove();
-            serializeData();
+            //serializeData();
         }
 
         private void propertyGrid1_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
@@ -297,12 +299,13 @@ namespace ManagersNotepadAppication
             else
                 fontSize = textEditor.SelectionFont.Size;
 
-            FontFamily fontFam = (FontFamily)fontComboBox.Items[index];
-
+            FontFamily fontFam = (FontFamily)fontScriptComboBox.Items[index];
+   
             // This protocol allows us to have nothing
             // selected but still start a new font or 
             // font size from the current editing point
             // <begin protocol>
+            
             int nOriginalSelectionLength = textEditor.SelectionLength;
             int nOriginalSelectionStart = textEditor.SelectionStart;
             if (nOriginalSelectionLength == 0)
@@ -318,7 +321,10 @@ namespace ManagersNotepadAppication
 
         private void selectSize(int index)
         {
-            String selectedFont = fontComboBox.SelectedItem.ToString();
+            String selectedFont = fontScriptComboBox.SelectedItem.ToString();
+
+            textEditor.SelectionFont = new Font(selectedFont, index);
+
             switch (index)
             {
                 case 0:
@@ -379,7 +385,7 @@ namespace ManagersNotepadAppication
             if (sizeComboBox.SelectedIndex != -1)
                 sizeComboBox.SelectedIndex = 0;
 
-            this.selectFont(fontComboBox.SelectedIndex);
+            this.selectFont(fontScriptComboBox.SelectedIndex);
         }
 
         private void sizeComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -396,33 +402,48 @@ namespace ManagersNotepadAppication
 
             if (textEditor.SelectionLength > 0)
             {
-                if (!textEditor.SelectionFont.Bold)
-                    textEditor.SelectionFont = new Font(new Font(fontComboBox.SelectedItem.ToString(),
-                        float.Parse(sizeComboBox.SelectedItem.ToString())), FontStyle.Bold);
-                else
-                    textEditor.SelectionFont = new Font(new Font(fontComboBox.SelectedItem.ToString(),
-                        float.Parse(sizeComboBox.SelectedItem.ToString())), FontStyle.Regular);
+                if (fontScriptComboBox.SelectedItem != null)
+                {
+                    if (!textEditor.SelectionFont.Bold)
+                        textEditor.SelectionFont = new Font(new Font(fontScriptComboBox.SelectedItem.ToString(),
+                            float.Parse(sizeComboBox.SelectedItem.ToString())), FontStyle.Bold);
+                    else
+                        textEditor.SelectionFont = new Font(new Font(fontScriptComboBox.SelectedItem.ToString(),
+                            float.Parse(sizeComboBox.SelectedItem.ToString())), FontStyle.Regular);
+                }
             }
         }
 
         private void italicButton_Click(object sender, EventArgs e)
         {
-            if (!textEditor.SelectionFont.Italic)
-                textEditor.SelectionFont = new Font(new Font(fontComboBox.SelectedItem.ToString(),
-                    float.Parse(sizeComboBox.SelectedItem.ToString())), FontStyle.Italic);
-            else
-                textEditor.SelectionFont = new Font(new Font(fontComboBox.SelectedItem.ToString(),
-                    float.Parse(sizeComboBox.SelectedItem.ToString())), FontStyle.Regular );
+            if (fontScriptComboBox.SelectedItem != null)
+            {
+                if (!textEditor.SelectionFont.Italic)
+                {
+
+                    textEditor.SelectionFont = new Font(new Font(fontScriptComboBox.SelectedItem.ToString(),
+                        float.Parse(sizeComboBox.SelectedItem.ToString())), FontStyle.Italic);
+                }
+                else
+                {
+                    textEditor.SelectionFont = new Font(new Font(fontScriptComboBox.SelectedItem.ToString(),
+                        float.Parse(sizeComboBox.SelectedItem.ToString())), FontStyle.Regular);
+                }
+                
+            }
         }
 
         private void underlineButton_Click(object sender, EventArgs e)
         {
-            if (!textEditor.SelectionFont.Underline)
-                textEditor.SelectionFont = new Font(new Font(fontComboBox.SelectedItem.ToString(),
-                    float.Parse(sizeComboBox.SelectedItem.ToString())), FontStyle.Underline);
-            else
-                textEditor.SelectionFont = new Font(new Font(fontComboBox.SelectedItem.ToString(),
-                    float.Parse(sizeComboBox.SelectedItem.ToString())), FontStyle.Regular);
+            if (fontScriptComboBox.SelectedItem != null)
+            {
+                if (!textEditor.SelectionFont.Underline)
+                    textEditor.SelectionFont = new Font(new Font(fontScriptComboBox.SelectedItem.ToString(),
+                        float.Parse(sizeComboBox.SelectedItem.ToString())), FontStyle.Underline);
+                else
+                    textEditor.SelectionFont = new Font(new Font(fontScriptComboBox.SelectedItem.ToString(),
+                        float.Parse(sizeComboBox.SelectedItem.ToString())), FontStyle.Regular);
+            }
         }
 
         private void bulletsButton_Click(object sender, EventArgs e)
@@ -536,7 +557,7 @@ namespace ManagersNotepadAppication
                         }
                         
                         // Save the new structure
-                        serializeData();
+                        //serializeData();
 
                         DestinationNode.Nodes.Add((TreeNode)NewNode.Clone());
                         DestinationNode.Expand();
@@ -687,6 +708,11 @@ namespace ManagersNotepadAppication
             {
                 currentNode.BeginEdit();
             }
+
+        }
+
+        private void fontScriptComboBox_Click(object sender, EventArgs e)
+        {
 
         }
   

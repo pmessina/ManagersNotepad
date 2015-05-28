@@ -56,17 +56,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Category.cs" />
-    <Compile Include="NotePadForm.cs">
+    <Compile Include="NotepadForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NotePadForm.Designer.cs">
-      <DependentUpon>NotePadForm.cs</DependentUpon>
+    <Compile Include="NotepadForm.Designer.cs">
+      <DependentUpon>NotepadForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Memo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="NotePadForm.resx">
-      <DependentUpon>NotePadForm.cs</DependentUpon>
+    <EmbeddedResource Include="NotepadForm.resx">
+      <DependentUpon>NotepadForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

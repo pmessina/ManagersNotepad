@@ -420,7 +420,6 @@ namespace ManagersNotepadAppication
             {
                 if (!textEditor.SelectionFont.Italic)
                 {
-
                     textEditor.SelectionFont = new Font(new Font(fontScriptComboBox.SelectedItem.ToString(),
                         float.Parse(sizeComboBox.SelectedItem.ToString())), FontStyle.Italic);
                 }
@@ -668,12 +667,12 @@ namespace ManagersNotepadAppication
         {
             if (!isSaved)
             {
-                //DialogResult msg = MessageBox.Show("Do you want to save the changes to " + this.Text + "?", "Save changes?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
-                
-                //if (msg == DialogResult.Yes)
-                //    serializeData();
-                //else if (msg == DialogResult.Cancel)
-                //    e.Cancel = true;
+                DialogResult msg = MessageBox.Show("Do you want to save the changes to " + this.Text + "?", "Save changes?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+
+                if (msg == DialogResult.Yes)
+                    serializeData();
+                else if (msg == DialogResult.Cancel)
+                    e.Cancel = true;
             }
         }
 
@@ -715,12 +714,11 @@ namespace ManagersNotepadAppication
         {
 
         }
-  
 
-
-
-   
-
-       
+        private void textEditor_Click(object sender, EventArgs e)
+        {
+            FontFamily fontFamily = ((RichTextBox)sender).SelectionFont.FontFamily;
+            fontScriptComboBox.SelectedItem = fontFamily;
+        }
     }
 }

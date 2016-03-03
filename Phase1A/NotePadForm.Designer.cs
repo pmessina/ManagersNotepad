@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Root");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Root");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NotepadForm));
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripAddCategory = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,8 +52,8 @@
             this.pasteToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.helpToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.fontScriptComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.sizeComboBox = new System.Windows.Forms.ToolStripComboBox();
+            this.fontScriptComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.boldButton = new System.Windows.Forms.ToolStripButton();
             this.italicButton = new System.Windows.Forms.ToolStripButton();
             this.underlineButton = new System.Windows.Forms.ToolStripButton();
@@ -176,11 +176,11 @@
             this.hierarchicalTree.LabelEdit = true;
             this.hierarchicalTree.Location = new System.Drawing.Point(0, 0);
             this.hierarchicalTree.Name = "hierarchicalTree";
-            treeNode2.ContextMenuStrip = this.contextMenuStrip1;
-            treeNode2.Name = "Root";
-            treeNode2.Text = "Root";
+            treeNode1.ContextMenuStrip = this.contextMenuStrip1;
+            treeNode1.Name = "Root";
+            treeNode1.Text = "Root";
             this.hierarchicalTree.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2});
+            treeNode1});
             this.hierarchicalTree.Size = new System.Drawing.Size(348, 400);
             this.hierarchicalTree.TabIndex = 0;
             this.hierarchicalTree.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.hierarchicalTree_AfterLabelEdit);
@@ -220,6 +220,7 @@
             this.textEditor.Size = new System.Drawing.Size(429, 192);
             this.textEditor.TabIndex = 0;
             this.textEditor.Text = "";
+            this.textEditor.Click += new System.EventHandler(this.textEditor_Click);
             this.textEditor.TextChanged += new System.EventHandler(this.textEditor_TextChanged);
             // 
             // propertyGrid1
@@ -257,7 +258,7 @@
             this.bulletsButton});
             this.toolStrip1.Location = new System.Drawing.Point(3, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(585, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(508, 25);
             this.toolStrip1.TabIndex = 5;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -342,16 +343,6 @@
             this.helpToolStripButton.Text = "He&lp";
             this.helpToolStripButton.Click += new System.EventHandler(this.helpToolStripButton_Click);
             // 
-            // fontScriptComboBox
-            // 
-            this.fontScriptComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.fontScriptComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.fontScriptComboBox.MaxDropDownItems = 5;
-            this.fontScriptComboBox.Name = "fontScriptComboBox";
-            this.fontScriptComboBox.Size = new System.Drawing.Size(100, 25);
-            this.fontScriptComboBox.SelectedIndexChanged += new System.EventHandler(this.fontComboBox_SelectedIndexChanged);
-            this.fontScriptComboBox.Click += new System.EventHandler(this.fontScriptComboBox_Click);
-            // 
             // sizeComboBox
             // 
             this.sizeComboBox.Items.AddRange(new object[] {
@@ -374,6 +365,15 @@
             this.sizeComboBox.Name = "sizeComboBox";
             this.sizeComboBox.Size = new System.Drawing.Size(75, 25);
             this.sizeComboBox.SelectedIndexChanged += new System.EventHandler(this.sizeComboBox_SelectedIndexChanged);
+            // 
+            // fontScriptComboBox
+            // 
+            this.fontScriptComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.fontScriptComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.fontScriptComboBox.MaxDropDownItems = 5;
+            this.fontScriptComboBox.Name = "fontScriptComboBox";
+            this.fontScriptComboBox.Size = new System.Drawing.Size(100, 25);
+            this.fontScriptComboBox.SelectedIndexChanged += new System.EventHandler(this.fontComboBox_SelectedIndexChanged);
             // 
             // boldButton
             // 
